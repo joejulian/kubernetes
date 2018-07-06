@@ -37,7 +37,6 @@ import (
 	etcd "github.com/coreos/etcd/client"
 	"github.com/coreos/etcd/clientv3"
 	"github.com/coreos/etcd/etcdserver"
-	"github.com/coreos/etcd/etcdserver/api/etcdhttp"
 	"github.com/coreos/etcd/etcdserver/api/v2http"
 	"github.com/coreos/etcd/integration"
 	"github.com/coreos/etcd/pkg/testutil"
@@ -192,9 +191,9 @@ func (m *EtcdTestServer) launch(t *testing.T) error {
 	if m.s, err = etcdserver.NewServer(&m.ServerConfig); err != nil {
 		return fmt.Errorf("failed to initialize the etcd server: %v", err)
 	}
-	m.s.SyncTicker = time.NewTicker(500 * time.Millisecond)
+	m.s.SyncTicker = time.Tick(500 * time.Millisecond)
 	m.s.Start()
-	m.raftHandler = &testutil.PauseableHandler{Next: etcdhttp.NewPeerHandler(m.s)}
+	m.raftHandler = &testutil.PauseableHandler{Next: v2http.NewPeerHandler(m.s)}
 	for _, ln := range m.PeerListeners {
 		hs := &httptest.Server{
 			Listener: ln,

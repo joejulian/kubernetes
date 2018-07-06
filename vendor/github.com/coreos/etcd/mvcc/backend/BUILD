@@ -7,48 +7,46 @@ go_library(
         "batch_tx.go",
         "doc.go",
         "metrics.go",
-        "read_tx.go",
-        "tx_buffer.go",
     ] + select({
         "@io_bazel_rules_go//go/platform:android": [
-            "config_default.go",
+            "boltoption_default.go",
         ],
         "@io_bazel_rules_go//go/platform:darwin": [
-            "config_default.go",
+            "boltoption_default.go",
         ],
         "@io_bazel_rules_go//go/platform:dragonfly": [
-            "config_default.go",
+            "boltoption_default.go",
         ],
         "@io_bazel_rules_go//go/platform:freebsd": [
-            "config_default.go",
+            "boltoption_default.go",
         ],
         "@io_bazel_rules_go//go/platform:linux": [
-            "config_linux.go",
+            "boltoption_linux.go",
         ],
         "@io_bazel_rules_go//go/platform:nacl": [
-            "config_default.go",
+            "boltoption_default.go",
         ],
         "@io_bazel_rules_go//go/platform:netbsd": [
-            "config_default.go",
+            "boltoption_default.go",
         ],
         "@io_bazel_rules_go//go/platform:openbsd": [
-            "config_default.go",
+            "boltoption_default.go",
         ],
         "@io_bazel_rules_go//go/platform:plan9": [
-            "config_default.go",
+            "boltoption_default.go",
         ],
         "@io_bazel_rules_go//go/platform:solaris": [
-            "config_default.go",
+            "boltoption_default.go",
         ],
         "@io_bazel_rules_go//go/platform:windows": [
-            "config_windows.go",
+            "boltoption_default.go",
         ],
         "//conditions:default": [],
     }),
     importpath = "github.com/coreos/etcd/mvcc/backend",
     visibility = ["//visibility:public"],
     deps = [
-        "//vendor/github.com/coreos/bbolt:go_default_library",
+        "//vendor/github.com/boltdb/bolt:go_default_library",
         "//vendor/github.com/coreos/pkg/capnslog:go_default_library",
         "//vendor/github.com/prometheus/client_golang/prometheus:go_default_library",
     ],
